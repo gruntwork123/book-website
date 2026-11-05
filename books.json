@@ -1,0 +1,48 @@
+[
+  {
+    "id": 101,
+    "t": "1984",
+    "a": "George Orwell",
+    "g": "Fiction",
+    "y": 1949,
+    "p": 328,
+    "pub": "Signet",
+    "isbn": "978-0451524935",
+    "d": "1949",
+    "c": [
+      "#3f7a4a",
+      "#14301b"
+    ],
+    "s": "A man fights a totalitarian regime that watches everything.",
+    "dist": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 102,
+    "t": "1984",
+    "a": "George Orwell",
+    "g": "Fiction",
+    "y": 1949,
+    "p": 328,
+    "pub": "Signet",
+    "isbn": "978-0451524935",
+    "d": "1949",
+    "c": [
+      "#3f7a4a",
+      "#14301b"
+    ],
+    "s": "A man fights a totalitarian regime that watches everything.",
+    "dist": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+]

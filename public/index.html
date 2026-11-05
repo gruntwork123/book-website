@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cambo Book – Book Catalog & Reviews</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{serif:['Fraunces','Georgia','serif'],sans:['Inter','system-ui','sans-serif']},colors:{paper:'var(--paper)',card:'var(--card)',ink:'var(--ink)',muted:'var(--muted)',line:'var(--line)',brand:'var(--brand)',onbrand:'var(--onbrand)',gold:'var(--gold)'}}}}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+:root{--paper:#f6f1e7;--card:#fffdf8;--ink:#231f1a;--muted:#6b6358;--line:#e4dccb;--brand:#1f4d3a;--onbrand:#fff;--gold:#c8932b;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#14181a;--card:#1c2124;--ink:#efe9dc;--muted:#a39b8c;--line:#2d3438;--brand:#6bb394;--onbrand:#0e1a14;--gold:#e0ad4a;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#14181a;--card:#1c2124;--ink:#efe9dc;--muted:#a39b8c;--line:#2d3438;--brand:#6bb394;--onbrand:#0e1a14;--gold:#e0ad4a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;background-image:radial-gradient(ellipse at 12% 0%,rgba(198,166,110,.12),transparent 36rem)}
+.serif{font-family:Fraunces,Georgia,serif}
+input,select,textarea{background:var(--card);border:1px solid var(--line);border-radius:.5rem;padding:.5rem .75rem;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-offset:1px}
+.btn{display:inline-flex;align-items:center;gap:.4rem;border-radius:.5rem;padding:.5rem .9rem;font-weight:500;font-size:.875rem;border:1px solid var(--line);background:var(--card);transition:.15s}
+.btn:hover{border-color:var(--brand)}
+.btn-p{background:var(--brand);color:var(--onbrand);border-color:var(--brand)}
+.btn-p:hover{opacity:.9}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:.35rem .9rem;font-size:.85rem}
+.chip:hover,.chip.on{background:var(--brand);color:var(--onbrand);border-color:var(--brand)}
+button{cursor:pointer}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.site-header{box-shadow:0 1px 0 rgba(53,42,27,.04)}
+.wordmark{letter-spacing:-.055em}
+.wordmark-note{font:600 .58rem Inter,system-ui,sans-serif;letter-spacing:.18em}
+.nav-link{transition:background .2s,color .2s}
+.hero-panel{position:relative;isolation:isolate;overflow:hidden;border-radius:1.5rem;background:linear-gradient(112deg,#183e30 0%,#214d39 57%,#315d43 100%);color:#fffdf6;box-shadow:0 22px 50px rgba(32,59,43,.12)}
+.hero-panel:before{content:"";position:absolute;z-index:-1;width:36rem;height:36rem;right:-13rem;top:-18rem;border:1px solid rgba(243,225,182,.18);border-radius:50%;box-shadow:0 0 0 2.8rem rgba(243,225,182,.035),0 0 0 6rem rgba(243,225,182,.025)}
+.hero-panel:after{content:"";position:absolute;z-index:-1;inset:auto 0 0;height:6px;background:linear-gradient(90deg,#c59a53,#e3cb91,#c59a53);opacity:.85}
+.hero-kicker{display:flex;align-items:center;gap:.65rem;color:#ddc994;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.hero-kicker:before{content:"";width:2rem;height:1px;background:#ddc994}
+.hero-title{letter-spacing:-.045em}
+.hero-copy{color:rgba(255,253,246,.74)}
+.hero-search{box-shadow:0 12px 30px rgba(7,27,18,.2)}
+.hero-search input{border:0;background:#fffdf8;color:#231f1a}
+.hero-search input:focus{outline:2px solid #d5ba7a}
+.hero-search-icon{color:#777064}
+.hero-art{position:relative;min-height:20rem}
+.hero-book{position:absolute;width:clamp(7.7rem,15vw,10.8rem);filter:drop-shadow(0 18px 15px rgba(4,17,11,.34));transition:transform .35s ease}
+.hero-book:hover{transform:translateY(-8px) rotate(0deg)!important}
+.hero-book .cover-surface{border-radius:3px 8px 8px 3px;box-shadow:inset 4px 0 0 rgba(255,255,255,.18),inset -3px 0 0 rgba(0,0,0,.2)}
+.hero-book-one{left:10%;top:12%;transform:rotate(-12deg)}
+.hero-book-two{left:38%;top:1%;z-index:2;transform:rotate(3deg)}
+.hero-book-three{right:4%;top:16%;transform:rotate(12deg)}
+.hero-book .cover-title{font-size:clamp(.8rem,1.3vw,1.15rem)}
+.hero-caption{position:absolute;right:5%;bottom:3%;color:rgba(255,253,246,.66);font-size:.67rem;letter-spacing:.13em;text-transform:uppercase}
+.section-eyebrow{color:var(--brand);font-size:.67rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.section-title{letter-spacing:-.035em}
+.book-card{border-radius:.8rem;background:var(--card);border:1px solid var(--line);padding:.8rem;transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}
+.book-card:hover{transform:translateY(-5px);border-color:rgba(31,77,58,.28);box-shadow:0 16px 30px rgba(51,42,26,.1)}
+.book-card-cover{padding:.35rem .35rem .1rem}
+.book-card-cover .cover-surface{box-shadow:7px 8px 14px rgba(36,30,20,.17),inset 4px 0 0 rgba(255,255,255,.14),inset -3px 0 0 rgba(0,0,0,.2);transition:transform .25s ease}
+.book-card-cover:hover .cover-surface{transform:rotate(-1.5deg) translateY(-2px)}
+.cover-title{position:relative;z-index:1}
+.cover-author{position:relative;z-index:1}
+.cover-image{z-index:2}
+.catalog-panel{box-shadow:0 8px 24px rgba(51,42,26,.045)}
+.quiet-rule{height:1px;background:var(--line)}
+.site-footer{border-top:1px solid var(--line);color:var(--muted)}
+@media(max-width:639px){.hero-panel{border-radius:1rem}.hero-art{min-height:14rem;margin-top:-.7rem}.hero-book{width:7.2rem}.hero-book-one{left:8%}.hero-book-two{left:35%}.hero-book-three{right:4%}.hero-caption{right:5%;bottom:0}.hero-copy{max-width:28rem}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const {useState,useMemo}=React;const html=htm.bind(React.createElement);
+const Icon=({n,s=18,fill,className})=>{const raw=(window.lucide&&lucide.icons&&lucide.icons[n])||[];const node=raw[0]==='svg'?(raw[2]||[]):raw;return React.createElement('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:fill?'currentColor':'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round',className,'aria-hidden':true},node.map(([t,a],i)=>React.createElement(t,{...a,key:i})));};
+
+const GENRES=['Fiction','Non-Fiction','Sci-Fi','Mystery','Fantasy','Biography','Romance'];
+const BOOKS=[
+{id:1,t:'Dune',a:'Frank Herbert',g:'Sci-Fi',y:1965,p:688,pub:'Ace Books',isbn:'978-0441013593',d:'Aug 1, 1965',c:['#8a5a2b','#2b1d10'],dist:[14,30,110,340,880],s:'On the desert planet Arrakis, young Paul Atreides is thrust into a war over the universe\u2019s most valuable substance, the spice melange. A sweeping saga of politics, ecology, and prophecy.'},
+{id:2,t:'Pride and Prejudice',a:'Jane Austen',g:'Romance',y:1813,p:480,pub:'Penguin Classics',isbn:'978-0141439518',d:'Jan 28, 1813',c:['#b0566b','#4a1d2b'],dist:[10,22,95,300,760],s:'Elizabeth Bennet navigates manners, money, and misjudgment as she spars with the proud Mr. Darcy in Austen\u2019s sparkling comedy of society and love.'},
+{id:3,t:'The Hobbit',a:'J.R.R. Tolkien',g:'Fantasy',y:1937,p:300,pub:'Mariner Books',isbn:'978-0547928227',d:'Sep 21, 1937',c:['#3f7a4a','#14301b'],dist:[8,18,80,310,900],s:'Bilbo Baggins, a comfort-loving hobbit, is swept into a quest with thirteen dwarves to reclaim a lost kingdom from the dragon Smaug.'},
+{id:4,t:'Gone Girl',a:'Gillian Flynn',g:'Mystery',y:2012,p:432,pub:'Crown',isbn:'978-0307588371',d:'Jun 5, 2012',c:['#4a5560','#14181d'],dist:[40,85,210,420,520],s:'On their fifth anniversary, Amy Dunne vanishes. As suspicion falls on her husband Nick, a twisting marriage thriller unravels what each really hides.'},
+{id:5,t:'Sapiens',a:'Yuval Noah Harari',g:'Non-Fiction',y:2011,p:464,pub:'Harper',isbn:'978-0062316110',d:'2011 (Hebrew original)',c:['#c0762d','#5a2c0c'],dist:[20,45,160,380,610],s:'A sweeping history of humankind, from the cognitive revolution to the modern age, asking how a modest ape came to dominate the planet.'},
+{id:6,t:'Educated',a:'Tara Westover',g:'Biography',y:2018,p:352,pub:'Random House',isbn:'978-0399590504',d:'Feb 20, 2018',c:['#2f5d8a','#0f2238'],dist:[9,20,90,330,840],s:'Raised in a survivalist family in rural Idaho, Tara Westover teaches herself enough to reach university, and pays the price of a new life.'},
+{id:7,t:'The Great Gatsby',a:'F. Scott Fitzgerald',g:'Fiction',y:1925,p:180,pub:'Scribner',isbn:'978-0743273565',d:'Apr 10, 1925',c:['#1f6b6b','#0b2a2a'],dist:[30,70,260,430,470],s:'Narrator Nick Carraway watches his mysterious neighbor Jay Gatsby chase a lost love through the glittering excess of 1920s Long Island.'},
+{id:8,t:'The Name of the Wind',a:'Patrick Rothfuss',g:'Fantasy',y:2007,p:662,pub:'DAW Books',isbn:'978-0756404741',d:'Mar 27, 2007',c:['#6a4a8a','#221430'],dist:[12,24,100,320,860],s:'Kvothe, a legendary magician turned innkeeper, recounts his youth as an orphaned performer who rose to the University and chased the truth about the Chandrian.'},
+{id:9,t:'To Kill a Mockingbird',a:'Harper Lee',g:'Fiction',y:1960,p:336,pub:'J.B. Lippincott & Co.',isbn:'978-0061120084',d:'Jul 11, 1960',c:['#a35f3a','#382014'],dist:[18,35,120,360,760],s:'Through the eyes of Scout Finch, a small Southern town confronts prejudice, conscience, and the courage to defend what is right.'},
+{id:10,t:'The Martian',a:'Andy Weir',g:'Sci-Fi',y:2011,p:369,pub:'Crown',isbn:'978-0553418026',d:'Feb 11, 2014',c:['#c15d32','#542311'],dist:[14,30,110,330,820],s:'Stranded alone on Mars, astronaut Mark Watney relies on ingenuity, science, and stubborn humor to stay alive while Earth races to bring him home.'},
+{id:11,t:'The Silent Patient',a:'Alex Michaelides',g:'Mystery',y:2019,p:336,pub:'Celadon Books',isbn:'978-1250301697',d:'Feb 5, 2019',c:['#394c59','#172127'],dist:[35,75,190,420,680],s:'A criminal psychotherapist becomes obsessed with a painter who stopped speaking after a shocking act of violence.'},
+{id:12,t:'Circe',a:'Madeline Miller',g:'Fantasy',y:2018,p:400,pub:'Little, Brown and Company',isbn:'978-0316556347',d:'Apr 10, 2018',c:['#55784b','#1b3021'],dist:[10,22,90,320,900],s:'In a reimagining of Greek myth, the overlooked daughter of a god discovers her own power and shapes a life beyond Olympus.'},
+{id:13,t:'Atomic Habits',a:'James Clear',g:'Non-Fiction',y:2018,p:320,pub:'Avery',isbn:'978-0735211292',d:'Oct 16, 2018',c:['#458b8b','#163333'],dist:[18,42,150,390,700],s:'A practical guide to building helpful routines, breaking unhelpful ones, and making small changes that add up over time.'},
+{id:14,t:'Becoming',a:'Michelle Obama',g:'Biography',y:2018,p:448,pub:'Crown',isbn:'978-1524763138',d:'Nov 13, 2018',c:['#92634d','#38261d'],dist:[12,28,110,350,820],s:'Michelle Obama reflects on her childhood, career, family, and public life in a candid account of the experiences that shaped her.'},
+{id:15,t:'The Midnight Library',a:'Matt Haig',g:'Fiction',y:2020,p:304,pub:'Viking',isbn:'978-0525559474',d:'Aug 13, 2020',c:['#435a8b','#17223d'],dist:[22,50,180,400,650],s:'Between life and death, Nora finds a library of possible lives and considers the choices, regrets, and connections that define a future.'},
+{id:16,t:'Project Hail Mary',a:'Andy Weir',g:'Sci-Fi',y:2021,p:496,pub:'Ballantine Books',isbn:'978-0593135204',d:'May 4, 2021',c:['#d09a42','#4a3212'],dist:[8,20,85,310,920],s:'A lone astronaut wakes far from Earth with no memory of his mission and must solve an impossible problem to save humanity.'},
+{id:17,t:'Little Women',a:'Louisa May Alcott',g:'Romance',y:1868,p:449,pub:'Roberts Brothers',isbn:'978-0147514011',d:'Sep 30, 1868',c:['#a95f79','#3f1e2b'],dist:[12,30,110,340,780],s:'The four March sisters grow up during the Civil War, navigating family bonds, ambitions, hardship, and the different futures they imagine.'},
+{id:18,t:'The Book Thief',a:'Markus Zusak',g:'Fiction',y:2005,p:584,pub:'Picador',isbn:'978-0375842207',d:'Mar 14, 2006',c:['#6b527d','#271d32'],dist:[18,36,125,380,760],s:'In wartime Germany, a young girl finds refuge in words, books, and the unlikely kindness of those around her.'},
+{id:19,t:'The Alchemist',a:'Paulo Coelho',g:'Fiction',y:1988,p:208,pub:'HarperOne',isbn:'978-0061122415',d:'1988',c:['#be9a50','#4b3219'],dist:[12,28,110,360,810],s:'A young shepherd follows a recurring dream across the desert, discovering that the search itself can change what he values.'},
+{id:20,t:'The Little Prince',a:'Antoine de Saint-Exupéry',g:'Fantasy',y:1943,p:96,pub:'Harcourt',isbn:'978-0156012195',d:'1943',c:['#7593a0','#1b3544'],dist:[7,15,70,280,920],s:'A stranded pilot meets a curious child whose travels offer a tender, clear-eyed look at friendship and growing up.'},
+{id:21,t:'Fahrenheit 451',a:'Ray Bradbury',g:'Sci-Fi',y:1953,p:249,pub:'Simon & Schuster',isbn:'978-1451673319',d:'1953',c:['#c15d36','#4b1f18'],dist:[28,55,180,390,690],s:'In a future where books are forbidden, fireman Guy Montag begins to question the work he has always done.'},
+{id:22,t:'Brave New World',a:'Aldous Huxley',g:'Sci-Fi',y:1932,p:288,pub:'Harper Perennial',isbn:'978-0060850524',d:'1932',c:['#586f70','#203337'],dist:[32,60,190,360,650],s:'A carefully engineered society promises comfort and order, until an outsider unsettles its idea of a perfect life.'},
+{id:23,t:'The Catcher in the Rye',a:'J.D. Salinger',g:'Fiction',y:1951,p:277,pub:'Little, Brown and Company',isbn:'978-0316769488',d:'1951',c:['#aa7440','#4c3019'],dist:[25,50,175,390,710],s:'After leaving school, Holden Caulfield wanders New York and tries to make sense of adulthood, loneliness, and change.'},
+{id:24,t:'Jane Eyre',a:'Charlotte Brontë',g:'Romance',y:1847,p:532,pub:'Penguin Classics',isbn:'978-0141441146',d:'1847',c:['#796052','#34251e'],dist:[9,20,90,320,860],s:'An independent young governess builds a life on her own terms, even as love and a troubling secret complicate it.'},
+{id:25,t:'Wuthering Heights',a:'Emily Brontë',g:'Romance',y:1847,p:416,pub:'Penguin Classics',isbn:'978-0141439556',d:'1847',c:['#59675e','#202a25'],dist:[35,65,190,360,620],s:'On the Yorkshire moors, a generational tale of fierce attachment and old resentments reshapes two neighboring families.'},
+{id:26,t:'Frankenstein',a:'Mary Shelley',g:'Sci-Fi',y:1818,p:280,pub:'Penguin Classics',isbn:'978-0141439471',d:'1818',c:['#687c79','#253c39'],dist:[10,22,100,350,830],s:'A scientist brings a new being to life, then faces the consequences of abandoning the creature he made.'},
+{id:27,t:'Dracula',a:'Bram Stoker',g:'Fiction',y:1897,p:488,pub:'Penguin Classics',isbn:'978-0141439846',d:'1897',c:['#773d42','#2a171c'],dist:[14,30,120,350,760],s:'Letters and journals chronicle a group of friends as they investigate the mysterious Count Dracula and his journey to England.'},
+{id:28,t:'The Picture of Dorian Gray',a:'Oscar Wilde',g:'Fiction',y:1890,p:256,pub:'Penguin Classics',isbn:'978-0141439570',d:'1890',c:['#9c7d52','#3b3022'],dist:[11,25,100,330,820],s:'A beautiful young man remains unchanged while a hidden portrait records the effects of his choices.'},
+{id:29,t:'The Odyssey',a:'Homer',g:'Fantasy',y:-700,p:560,pub:'Penguin Classics',isbn:'978-0140268867',d:'c. 8th century BCE',c:['#526b77','#1d323d'],dist:[8,18,85,310,860],s:'After the Trojan War, Odysseus faces a long chain of dangers and detours on his way back to Ithaca.'},
+{id:30,t:'The Iliad',a:'Homer',g:'Fiction',y:-750,p:704,pub:'Penguin Classics',isbn:'978-0140275360',d:'c. 8th century BCE',c:['#9a6541','#3d2518'],dist:[8,18,75,280,820],s:'A short span of the Trojan War turns on the anger of Achilles and the human cost carried by both sides.'},
+{id:31,t:'Moby-Dick',a:'Herman Melville',g:'Fiction',y:1851,p:720,pub:'Penguin Classics',isbn:'978-0142437247',d:'1851',c:['#4b7580','#1d3840'],dist:[28,55,180,350,660],s:'Sailor Ishmael joins Captain Ahab’s voyage, where a hunt for a white whale becomes an all-consuming pursuit.'},
+{id:32,t:'Crime and Punishment',a:'Fyodor Dostoevsky',g:'Fiction',y:1866,p:671,pub:'Penguin Classics',isbn:'978-0140449136',d:'1866',c:['#87634b','#39281f'],dist:[13,30,120,360,790],s:'A cash-strapped student commits a crime and is pulled into a tense struggle with guilt, reason, and compassion.'},
+{id:33,t:'War and Peace',a:'Leo Tolstoy',g:'Fiction',y:1869,p:1296,pub:'Penguin Classics',isbn:'978-0140447934',cover:12621906,d:'1869',c:['#6a6859','#292a25'],dist:[10,22,90,300,780],s:'Several Russian families navigate love, ambition, and upheaval during the Napoleonic invasion of their homeland.'},
+{id:34,t:'Anna Karenina',a:'Leo Tolstoy',g:'Romance',y:1878,p:864,pub:'Penguin Classics',isbn:'978-0143035008',d:'1878',c:['#9d624c','#44271e'],dist:[12,28,105,340,780],s:'A society marriage, a passionate affair, and the lives surrounding them form a portrait of love and consequence.'},
+{id:35,t:'The Count of Monte Cristo',a:'Alexandre Dumas',g:'Fiction',y:1844,p:1276,pub:'Penguin Classics',isbn:'978-0140449266',d:'1844',c:['#495c72','#1c2938'],dist:[10,24,110,370,850],s:'Wrongfully imprisoned, Edmond Dantès escapes and returns years later with a plan to confront those who betrayed him.'},
+{id:36,t:'Don Quixote',a:'Miguel de Cervantes',g:'Fiction',y:1605,p:992,pub:'Harper Perennial',isbn:'978-0060934347',d:'1605',c:['#a57d45','#49351d'],dist:[12,27,105,340,760],s:'A would-be knight and his practical companion set out across Spain, where imagined adventures meet everyday life.'},
+{id:37,t:'The Brothers Karamazov',a:'Fyodor Dostoevsky',g:'Fiction',y:1880,p:796,pub:'Farrar, Straus and Giroux',isbn:'978-0374528379',d:'1880',c:['#5d6e65','#25332c'],dist:[10,24,100,340,810],s:'Three brothers and their volatile father become the center of a murder case and questions about faith, freedom, and responsibility.'},
+{id:38,t:'The Stranger',a:'Albert Camus',g:'Fiction',y:1942,p:123,pub:'Vintage International',isbn:'978-0679720201',d:'1942',c:['#b68a50','#4b3521'],dist:[24,50,170,380,690],s:'Meursault’s emotionally detached account of an ordinary life takes a stark turn after a chance encounter on a beach.'},
+{id:39,t:'Slaughterhouse-Five',a:'Kurt Vonnegut',g:'Sci-Fi',y:1969,p:275,pub:'Dial Press',isbn:'978-0385333849',d:'1969',c:['#596d85','#202d42'],dist:[13,28,110,350,800],s:'Billy Pilgrim slips between moments in his life in a darkly comic, unconventional reflection on war and memory.'},
+{id:40,t:'The Handmaid’s Tale',a:'Margaret Atwood',g:'Sci-Fi',y:1985,p:311,pub:'Anchor Books',isbn:'978-0385490818',d:'1985',c:['#a7433d','#421c20'],dist:[22,48,160,360,730],s:'In a theocratic state that controls women’s lives, Offred preserves her memories and searches for ways to resist.'},
+{id:41,t:'The Road',a:'Cormac McCarthy',g:'Fiction',y:2006,p:287,pub:'Vintage',isbn:'978-0307387899',d:'2006',c:['#64615b','#292723'],dist:[18,38,140,340,720],s:'A father and son travel through a devastated landscape, relying on each other as they search for safety.'},
+{id:42,t:'The Kite Runner',a:'Khaled Hosseini',g:'Fiction',y:2003,p:371,pub:'Riverhead Books',isbn:'978-1594631931',d:'2003',c:['#718b8e','#273d41'],dist:[14,32,120,360,790],s:'A childhood friendship in Kabul leaves a lasting mark, drawing one man back toward a difficult chance to make amends.'},
+{id:43,t:'Life of Pi',a:'Yann Martel',g:'Fantasy',y:2001,p:319,pub:'Mariner Books',isbn:'978-0156027328',d:'2001',c:['#44888a','#163a3c'],dist:[18,40,150,380,720],s:'After a shipwreck, a teenager finds himself adrift in a lifeboat with an unexpected companion and a story to tell.'},
+{id:44,t:'A Man Called Ove',a:'Fredrik Backman',g:'Fiction',y:2012,p:337,pub:'Washington Square Press',isbn:'978-1476738024',d:'2012',c:['#8c7761','#40352b'],dist:[10,24,110,370,840],s:'A rigid, grieving neighbor resists change until new people on his street gradually become part of his life.'},
+{id:45,t:'Where the Crawdads Sing',a:'Delia Owens',g:'Mystery',y:2018,p:384,pub:'G.P. Putnam’s Sons',isbn:'978-0735219090',d:'2018',c:['#6d886c','#293b2b'],dist:[20,45,165,390,700],s:'A young woman raised in the marsh becomes entangled in a local investigation as her isolated life draws public attention.'},
+{id:46,t:'The Seven Husbands of Evelyn Hugo',a:'Taylor Jenkins Reid',g:'Romance',y:2017,p:400,pub:'Atria Books',isbn:'978-1501161933',d:'2017',c:['#9b7956','#3c3026'],dist:[16,35,135,380,780],s:'A reclusive film icon finally tells the story of her career, her marriages, and the choices she kept private.'},
+{id:47,t:'The Song of Achilles',a:'Madeline Miller',g:'Fantasy',y:2011,p:416,pub:'Ecco',isbn:'978-0062060624',d:'2011',c:['#bd9a57','#51401e'],dist:[8,20,90,350,890],s:'Patroclus recounts his bond with Achilles, from their youth together to the legendary conflict at Troy.'},
+{id:48,t:'The Night Circus',a:'Erin Morgenstern',g:'Fantasy',y:2011,p:512,pub:'Doubleday',isbn:'978-0307744432',d:'2011',c:['#24242e','#090b12'],dist:[12,28,110,360,830],s:'A mysterious circus appears without warning, becoming the stage for a long-running contest between two young magicians.'},
+{id:49,t:'A Court of Thorns and Roses',a:'Sarah J. Maas',g:'Fantasy',y:2015,p:432,pub:'Bloomsbury',isbn:'978-1619634442',d:'2015',c:['#586f49','#202e20'],dist:[18,42,150,380,720],s:'A hunt in the woods carries Feyre into a dangerous faerie realm, where uneasy alliances reshape her future.'},
+{id:50,t:'The Way of Kings',a:'Brandon Sanderson',g:'Fantasy',y:2010,p:1007,pub:'Tor Books',isbn:'978-0765326355',d:'2010',c:['#537897','#1c344b'],dist:[10,25,100,350,860],s:'On a storm-battered world, a soldier, a scholar, and a highprince face separate paths toward an approaching war.'},
+{id:51,t:'The Fellowship of the Ring',a:'J.R.R. Tolkien',g:'Fantasy',y:1954,p:432,pub:'Mariner Books',isbn:'978-0547928210',d:'1954',c:['#5c7543','#24301b'],dist:[8,18,90,340,900],s:'A hobbit inherits a dangerous ring and joins a diverse company on a journey to keep it from a rising power.'},
+{id:52,t:'A Game of Thrones',a:'George R.R. Martin',g:'Fantasy',y:1996,p:694,pub:'Bantam Books',isbn:'978-0553593716',d:'1996',c:['#565d70','#202532'],dist:[16,35,130,360,780],s:'Noble families maneuver for control of a kingdom while a threat gathers beyond its distant northern border.'},
+{id:53,t:'The Lion, the Witch and the Wardrobe',a:'C.S. Lewis',g:'Fantasy',y:1950,p:208,pub:'HarperCollins',isbn:'978-0064404990',d:'1950',c:['#607d52','#26331e'],dist:[8,20,100,350,880],s:'Four siblings step through a wardrobe into a wintry land, where an old prophecy offers hope against a cruel ruler.'},
+{id:54,t:'Harry Potter and the Sorcerer’s Stone',a:'J.K. Rowling',g:'Fantasy',y:1997,p:320,pub:'Scholastic',isbn:'978-0590353427',d:'1997',c:['#6d583f','#302319'],dist:[12,26,105,360,880],s:'On his eleventh birthday, Harry discovers a hidden school of magic and begins to uncover the story of his past.'},
+{id:55,t:'The Hunger Games',a:'Suzanne Collins',g:'Sci-Fi',y:2008,p:374,pub:'Scholastic Press',isbn:'978-0439023528',d:'2008',c:['#9a583c','#3d251e'],dist:[20,48,180,410,740],s:'Katniss volunteers for a televised contest where survival means challenging the rules set by a powerful government.'},
+{id:56,t:'The Fault in Our Stars',a:'John Green',g:'Romance',y:2012,p:313,pub:'Dutton Books',isbn:'978-0525478812',d:'2012',c:['#658b91','#243c43'],dist:[18,42,155,380,720],s:'Two sharp-witted teenagers meet in a support group and build a close connection while navigating illness and uncertainty.'},
+{id:57,t:'Paper Towns',a:'John Green',g:'Mystery',y:2008,p:305,pub:'Dutton Books',isbn:'978-0142414934',d:'2008',c:['#78906d','#2d3b2b'],dist:[15,35,130,360,760],s:'After a neighbor disappears, Quentin follows a trail of clues that challenges the story he has told himself about her.'},
+{id:58,t:'The Color Purple',a:'Alice Walker',g:'Fiction',y:1982,p:304,pub:'Mariner Books',isbn:'978-0156028356',d:'1982',c:['#9a5872','#3d2334'],dist:[9,22,105,370,870],s:'A series of letters traces Celie’s journey toward connection, independence, and a voice of her own in the American South.'},
+{id:59,t:'Beloved',a:'Toni Morrison',g:'Fiction',y:1987,p:324,pub:'Vintage',isbn:'978-1400033416',d:'1987',c:['#725964','#342630'],dist:[10,24,110,350,820],s:'A family’s present is unsettled by memories of slavery and the appearance of a mysterious young woman at their home.'},
+{id:60,t:'Things Fall Apart',a:'Chinua Achebe',g:'Fiction',y:1958,p:209,pub:'Anchor Books',isbn:'978-0385474542',d:'1958',c:['#9c7949','#40331e'],dist:[8,18,90,340,870],s:'A respected Igbo leader faces personal and cultural upheaval as colonial rule transforms his community.'},
+{id:61,t:'The Old Man and the Sea',a:'Ernest Hemingway',g:'Fiction',y:1952,p:127,pub:'Scribner',isbn:'978-0684801223',d:'1952',c:['#577985','#203941'],dist:[12,26,110,350,830],s:'An aging Cuban fisherman ventures far offshore and struggles to bring home the great fish he has finally caught.'},
+{id:62,t:'Of Mice and Men',a:'John Steinbeck',g:'Fiction',y:1937,p:112,pub:'Penguin Books',isbn:'978-0140177398',d:'1937',c:['#90724f','#392d20'],dist:[15,35,130,370,760],s:'Two migrant ranch workers hold onto a shared dream of owning land as they move through Depression-era California.'},
+{id:63,t:'The Grapes of Wrath',a:'John Steinbeck',g:'Fiction',y:1939,p:464,pub:'Penguin Books',isbn:'978-0143039433',d:'1939',c:['#a16043','#42271b'],dist:[10,24,115,360,820],s:'The Joad family leaves a struggling farm and travels west, joining other families searching for work and security.'},
+{id:64,t:'The Outsiders',a:'S.E. Hinton',g:'Fiction',y:1967,p:224,pub:'Speak',isbn:'978-0142407332',d:'1967',c:['#6a7b83','#293237'],dist:[12,28,110,370,820],s:'A teenager caught between rival groups finds loyalty, family, and a fragile sense of belonging in his Oklahoma town.'},
+{id:65,t:'The Perks of Being a Wallflower',a:'Stephen Chbosky',g:'Fiction',y:1999,p:224,pub:'MTV Books',isbn:'978-1451696196',d:'1999',c:['#997b53','#41331f'],dist:[14,32,120,360,780],s:'Through letters to an unseen reader, Charlie describes friendship, school, and the difficult work of understanding himself.'},
+{id:66,t:'The House in the Cerulean Sea',a:'TJ Klune',g:'Fantasy',y:2020,p:394,pub:'Tor Books',isbn:'978-1250217288',d:'2020',c:['#568b91','#203d42'],dist:[8,22,100,360,860],s:'A cautious caseworker visits a remote home for magical children and finds his orderly life opening into something new.'},
+{id:67,t:'Midnight’s Children',a:'Salman Rushdie',g:'Fiction',y:1981,p:647,pub:'Random House',isbn:'978-0812976533',d:'1981',c:['#777149','#34331c'],dist:[8,20,95,330,800],s:'Born at the moment of India’s independence, Saleem Sinai tells a sprawling family story intertwined with a new nation.'},
+{id:68,t:'The Secret Garden',a:'Frances Hodgson Burnett',g:'Fiction',y:1911,p:331,pub:'Penguin Classics',isbn:'978-0141321064',cover:12622062,d:'1911',c:['#59784c','#22331d'],dist:[9,22,100,350,850],s:'A lonely girl discovers a locked garden and, with new friends, helps bring life back to the hidden place.'}];
+const SEED=[
+[1,'Maya Okafor',5,'A monument of sci-fi','Dense, strange, and utterly immersive. The worldbuilding still feels fresh.','2026-09-14',1],
+[1,'Leo Hartmann',4,'Slow start, huge payoff','Took 100 pages to click, then I could not put it down.','2026-08-02',0],
+[2,'Priya Nair',5,'Witty and timeless','Austen\u2019s dialogue crackles. Re-read it every year.','2026-10-03',1],
+[2,'Tom Becker',4,'Better than expected','I came for the romance and stayed for the social satire.','2026-07-19',0],
+[3,'Sam Wilder',5,'The perfect comfort read','Cozy, adventurous, and gloriously quotable.','2026-09-28',1],
+[3,'Ana Costa',4,'Charming adventure','Lighter than the trilogy but with real heart.','2026-06-11',1],
+[4,'Dana Lee',4,'Twisty and nasty','Brilliantly unreliable narrators. Not a feel-good book!','2026-10-10',1],
+[4,'Ravi Patel',3,'Good, not great','The midpoint twist is excellent but the ending left me cold.','2026-05-30',0],
+[5,'Chloe Martin',5,'Changed how I see history','Big ideas, readable prose, endless dinner-table debates.','2026-09-05',1],
+[5,'Omar Haddad',3,'Provocative but sweeping','Fascinating, though some claims deserve more nuance.','2026-04-22',0],
+[6,'Grace Kim',5,'Unforgettable memoir','Raw, honest, and beautifully written.','2026-10-18',1],
+[6,'Ben Foster',4,'Gripping','Hard to believe it is true. Read it in two sittings.','2026-08-15',0],
+[7,'Nora Ellis',4,'Short and sharp','A tiny book with a huge ending.','2026-07-07',1],
+[7,'Jack Rowe',3,'Overhyped?','Gorgeous prose but I never warmed to the characters.','2026-03-12',0],
+[8,'Isla Brown',5,'Lyrical fantasy','The prose alone is worth it. Now I wait for book three\u2026','2026-10-21',1],
+[8,'Hugo Silva',4,'Immersive','The magic system and music scenes are wonderful.','2026-09-01',0]
+].map((r,i)=>({id:'s'+i,b:r[0],u:r[1],r:r[2],t:r[3],x:r[4],d:r[5],v:!!r[6]}));
+const STATUS=[['read','Read','BookCheck'],['reading','Currently Reading','BookOpen'],['want','Want to Read','Bookmark']];
+
+const hue=n=>{let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%360;return h};
+const Avatar=({name,s=40})=>html`<div className="rounded-full flex items-center justify-center font-semibold text-white shrink-0" style=${{width:s,height:s,background:`hsl(${hue(name)} 40% 38%)`}}>${name.split(' ').map(w=>w[0]).slice(0,2).join('')}</div>`;
+const Cover=({b,big})=>html`<div className=${'cover-surface relative w-full rounded-md shadow-md flex flex-col justify-between text-white overflow-hidden '+(big?'p-5':'p-3')} style=${{aspectRatio:'2/3',background:`linear-gradient(145deg,${b.c[0]},${b.c[1]})`,borderLeft:'6px solid rgba(0,0,0,.25)'}}>
+<div className=${'cover-title serif font-bold leading-tight '+(big?'text-2xl':'text-base')}>${b.t}</div>
+<div className=${'cover-author opacity-80 '+(big?'text-sm':'text-xs')}>${b.a}</div>
+${(b.cover||b.isbn)&&html`<img src=${b.cover?'https://covers.openlibrary.org/b/id/'+b.cover+'-M.jpg?default=false':'https://covers.openlibrary.org/b/isbn/'+encodeURIComponent(b.isbn)+'-M.jpg?default=false'} alt=${b.t+' book cover'} loading="lazy" decoding="async" className="cover-image absolute top-0 right-0 h-full object-cover" style=${{width:'calc(100% - 6px)'}} onError=${e=>{e.currentTarget.style.display='none'}}/>`}
+</div>`;
+const Stars=({v,s=16})=>html`<span className="inline-flex text-gold">${[1,2,3,4,5].map(i=>html`<${Icon} key=${i} n="Star" s=${s} fill=${i<=Math.round(v)} className=${i<=Math.round(v)?'':'opacity-40'}/>`)}</span>`;
+const StarPicker=({v,set})=>{const [h,setH]=useState(0);return html`<div className="flex text-gold" onMouseLeave=${()=>setH(0)}>${[1,2,3,4,5].map(i=>html`<button type="button" key=${i} aria-label=${i+' stars'} onMouseEnter=${()=>setH(i)} onClick=${()=>set(i)} className="p-0.5"><${Icon} n="Star" s=${28} fill=${i<=(h||v)}/></button>`)}</div>`};
+const fmt=d=>new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+
+function stats(b,mine){const d=[...b.dist];mine.filter(r=>r.b===b.id).forEach(r=>d[r.r-1]++);const n=d.reduce((a,c)=>a+c,0);return{d,n,avg:d.reduce((a,c,i)=>a+c*(i+1),0)/n}}
+
+function Card({b,st,onOpen}){return html`<article className="book-card flex flex-col gap-3">
+<button className="book-card-cover" onClick=${onOpen} aria-label=${'Open '+b.t}><${Cover} b=${b}/></button>
+<div className="flex-1"><span className="text-xs px-2 py-0.5 rounded-full bg-brand text-onbrand">${b.g}</span>
+<h3 className="serif font-bold text-lg mt-2 leading-snug">${b.t}</h3><p className="text-sm text-muted">${b.a}</p>
+<div className="flex items-center gap-2 mt-2 text-sm"><${Stars} v=${st.avg} s=${14}/><span className="font-medium">${st.avg.toFixed(1)}</span><span className="text-muted">(${st.n.toLocaleString()})</span></div></div>
+<button className="btn btn-p justify-center" onClick=${onOpen}>View Details</button></article>`}
+
+function Detail({b,st,mine,shelf,setShelf,addReview,close}){
+ const [sf,setSf]=useState(0),[rt,setRt]=useState(0),[title,setTitle]=useState(''),[text,setText]=useState('');
+ const revs=[...mine.filter(r=>r.b===b.id),...SEED.filter(r=>r.b===b.id)].filter(r=>!sf||r.r===sf);
+ const cur=shelf[b.id];
+ const submit=e=>{e.preventDefault();if(!rt||!title.trim()||!text.trim())return;addReview({id:'m'+Date.now(),b:b.id,u:'You',r:rt,t:title.trim(),x:text.trim(),d:new Date().toISOString(),v:cur==='read'});setRt(0);setTitle('');setText('')};
+ return html`<div className="fixed inset-0 z-50 bg-black/60 overflow-y-auto" onClick=${close}>
+ <div className="bg-paper max-w-4xl mx-auto my-0 sm:my-8 sm:rounded-2xl p-5 sm:p-8 relative" style=${{minHeight:'100%'}} onClick=${e=>e.stopPropagation()}>
+ <button className="btn absolute top-4 right-4" onClick=${close} aria-label="Close"><${Icon} n="X"/></button>
+ <div className="grid sm:grid-cols-[220px_1fr] gap-6 mt-6 sm:mt-0">
+  <div className="max-w-[220px] w-full mx-auto"><${Cover} b=${b} big/></div>
+  <div><span className="text-xs px-2 py-0.5 rounded-full bg-brand text-onbrand">${b.g}</span>
+   <h2 className="serif text-3xl font-bold mt-2">${b.t}</h2><p className="text-muted">by ${b.a}</p>
+   <div className="flex items-center gap-2 mt-2"><${Stars} v=${st.avg}/><b>${st.avg.toFixed(2)}</b><span className="text-muted text-sm">${st.n.toLocaleString()} ratings</span></div>
+   <p className="mt-4 leading-relaxed">${b.s}</p>
+   <dl className="grid grid-cols-2 gap-x-4 gap-y-2 mt-4 text-sm">
+    ${[['Pages',b.p],['Publisher',b.pub],['ISBN',b.isbn],['Published',b.d]].map(([k,v])=>html`<div key=${k}><dt className="text-muted">${k}</dt><dd className="font-medium">${v}</dd></div>`)}</dl>
+   <div className="flex flex-wrap gap-2 mt-5">${STATUS.map(([k,l,ic])=>html`<button key=${k} onClick=${()=>setShelf(b.id,cur===k?null:k)} className=${'btn '+(cur===k?'btn-p':'')}><${Icon} n=${ic} s=${16}/>${l}</button>`)}</div>
+  </div></div>
+ <section className="mt-8 grid md:grid-cols-[260px_1fr] gap-8">
+  <div><h3 className="serif text-xl font-bold mb-3">Rating breakdown</h3>
+   ${[5,4,3,2,1].map(n=>{const pct=Math.round(st.d[n-1]/st.n*100);return html`<button key=${n} onClick=${()=>setSf(sf===n?0:n)} className=${'flex items-center gap-2 w-full py-1 text-sm rounded '+(sf===n?'font-semibold':'')}>
+    <span className="w-8 flex items-center gap-0.5">${n}<${Icon} n="Star" s=${12} fill/></span>
+    <span className="flex-1 h-2.5 rounded-full bg-line overflow-hidden"><span className="block h-full bg-gold" style=${{width:pct+'%'}}></span></span><span className="w-9 text-right text-muted">${pct}%</span></button>`})}
+   ${sf?html`<button className="text-sm underline mt-2 text-brand" onClick=${()=>setSf(0)}>Clear ${sf}-star filter</button>`:html`<p className="text-xs text-muted mt-2">Tap a row to filter reviews.</p>`}
+   <form onSubmit=${submit} className="mt-6 bg-card border border-line rounded-xl p-4 space-y-3">
+    <h4 className="font-semibold">Write a review</h4><${StarPicker} v=${rt} set=${setRt}/>
+    <input placeholder="Review title" value=${title} maxLength="80" onChange=${e=>setTitle(e.target.value)}/>
+    <textarea rows="4" placeholder="What did you think?" value=${text} onChange=${e=>setText(e.target.value)}></textarea>
+    <button className="btn btn-p w-full justify-center" disabled=${!rt||!title.trim()||!text.trim()} style=${{opacity:(!rt||!title.trim()||!text.trim())?.5:1}}>Post Review</button></form></div>
+  <div><h3 className="serif text-xl font-bold mb-3">Community reviews</h3>
+   <div className="space-y-4">${revs.length?revs.map(r=>html`<article key=${r.id} className="bg-card border border-line rounded-xl p-4">
+    <div className="flex items-center gap-3"><${Avatar} name=${r.u}/><div className="flex-1"><div className="font-medium flex items-center gap-1.5">${r.u}${r.v&&html`<span className="inline-flex items-center gap-1 text-xs text-brand"><${Icon} n="BadgeCheck" s=${14}/>Verified</span>`}</div><div className="text-xs text-muted">${fmt(r.d)}</div></div><${Stars} v=${r.r} s=${14}/></div>
+    <h4 className="font-semibold mt-3">${r.t}</h4><p className="text-sm mt-1 leading-relaxed">${r.x}</p></article>`):html`<p className="text-muted">No reviews match this filter yet.</p>`}</div></div>
+ </section></div></div>`}
+
+function App(){
+ const [view,setView]=useState('home'),[open,setOpen]=useState(null),[shelf,setShelfS]=useState({1:'reading',3:'read',6:'want'}),[mine,setMine]=useState([]);
+ const [f,setF]=useState({q:'',g:'',a:'',r:0,y:'',s:'rated'}),[tab,setTab]=useState('read');
+ const upd=o=>setF(p=>({...p,...o}));
+ const all=useMemo(()=>BOOKS.map(b=>({b,st:stats(b,mine)})),[mine]);
+ const authors=[...new Set(BOOKS.map(b=>b.a))].sort();
+ const list=all.filter(({b,st})=>(!f.q||(b.t+b.a+b.g).toLowerCase().includes(f.q.toLowerCase()))&&(!f.g||b.g===f.g)&&(!f.a||b.a===f.a)&&st.avg>=f.r&&(!f.y||(f.y==='old'?b.y<1950:f.y==='mid'?b.y>=1950&&b.y<2000:b.y>=2000)))
+  .sort((x,z)=>f.s==='rated'?z.st.avg-x.st.avg:f.s==='new'?z.b.y-x.b.y:z.st.n-x.st.n);
+ const go=(v,o)=>{if(o)upd(o);setView(v);scrollTo(0,0)};
+ const setShelf=(id,s)=>setShelfS(p=>{const n={...p};s?n[id]=s:delete n[id];return n});
+ const ob=open&&all.find(x=>x.b.id===open);
+ const Nav=({k,l,ic})=>html`<button onClick=${()=>go(k)} className=${'flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium '+(view===k?'bg-brand text-onbrand':'hover:bg-line')}><${Icon} n=${ic} s=${16}/><span className="hidden sm:inline">${l}</span></button>`;
+ return html`<div>
+ <header className="site-header sticky top-0 z-40 bg-paper/90 backdrop-blur border-b border-line"><div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+  <button onClick=${()=>go('home')} className="wordmark serif text-2xl font-bold text-brand flex items-center gap-2"><${Icon} n="BookOpen" s=${26}/><span>Cambo Book<span className="wordmark-note block text-muted mt-0.5">A READING CLUB</span></span></button>
+  <nav className="flex gap-1"><${Nav} k="home" l="Discover" ic="Compass"/><${Nav} k="catalog" l="Catalog" ic="Library"/><${Nav} k="profile" l="My Shelf" ic="User"/></nav></div></header>
+ <main className="max-w-6xl mx-auto px-4 pb-16">
+ ${view==='home'&&html`<div>
+  <section className="hero-panel grid md:grid-cols-[1.05fr_.95fr] items-center gap-6 sm:gap-10 px-6 py-10 sm:px-12 sm:py-14 mt-7 sm:mt-10">
+   <div className="relative z-10"><p className="hero-kicker">A little more well-read</p>
+    <h1 className="hero-title serif text-4xl sm:text-6xl font-bold mt-5 leading-[1.05]">Stories worth<br className="hidden sm:block"/> <span className="text-[#e7d19c]">staying in for.</span></h1>
+    <p className="hero-copy mt-5 max-w-lg leading-relaxed">Find your next favorite, keep track of the books you love, and share a few thoughtful words with fellow readers.</p>
+    <form className="hero-search max-w-xl mt-7 relative rounded-lg overflow-hidden" onSubmit=${e=>{e.preventDefault();go('catalog',{g:''})}}><span className="hero-search-icon absolute left-3 top-1/2 -translate-y-1/2"><${Icon} n="Search"/></span>
+     <input style=${{paddingLeft:'2.5rem',paddingTop:'.85rem',paddingBottom:'.85rem'}} placeholder="A title, an author, a whole new world…" value=${f.q} onChange=${e=>upd({q:e.target.value})}/></form>
+    <button className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#f0dfb6] hover:text-white" onClick=${()=>go('catalog')}>Wander through the library <${Icon} n="ArrowRight" s=${16}/></button>
+   </div>
+   <div className="hero-art hidden md:block" aria-label="A little reading inspiration">
+    ${[[BOOKS[2],'hero-book-one'],[BOOKS[15],'hero-book-two'],[BOOKS[1],'hero-book-three']].map(([b,c])=>html`<button key=${b.id} className=${'hero-book '+c} onClick=${()=>setOpen(b.id)} aria-label=${'Discover '+b.t}><${Cover} b=${b}/></button>`)}
+    <p className="hero-caption">A good story is always in season</p>
+   </div>
+  </section>
+  <section className="py-9 sm:py-11"><div className="flex flex-wrap items-end justify-between gap-4 mb-5"><div><p className="section-eyebrow mb-2">Follow your curiosity</p><h2 className="section-title serif text-2xl sm:text-3xl font-bold">Browse by mood</h2></div><p className="text-sm text-muted max-w-sm">From old favorites to faraway worlds, there's a shelf for every kind of reader.</p></div>
+   <div className="flex flex-wrap gap-2">${GENRES.map(g=>html`<button key=${g} className="chip" onClick=${()=>go('catalog',{g,q:''})}>${g}</button>`)}</div></section>
+  <div className="quiet-rule"></div>
+  <div className="flex items-end justify-between mb-5 mt-8"><div><p className="section-eyebrow mb-2">Picked for your next chapter</p><h2 className="section-title serif text-2xl sm:text-3xl font-bold">Featured books</h2></div><button className="text-brand text-sm font-semibold inline-flex items-center gap-1" onClick=${()=>go('catalog')}>Browse all <${Icon} n="ArrowRight" s=${16}/></button></div>
+  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">${[...all].sort((a,b)=>b.st.avg-a.st.avg).slice(0,4).map(({b,st})=>html`<${Card} key=${b.id} b=${b} st=${st} onOpen=${()=>setOpen(b.id)}/>`)}</div></div>`}
+ ${view==='catalog'&&html`<div className="pt-8"><p className="section-eyebrow mb-2">Find a story to get lost in</p><h1 className="serif text-3xl font-bold mb-5">The library</h1>
+  <div className="catalog-panel bg-card border border-line rounded-xl p-4 grid grid-cols-2 lg:grid-cols-6 gap-3">
+   <div className="col-span-2"><input placeholder="Search\u2026" value=${f.q} onChange=${e=>upd({q:e.target.value})}/></div>
+   <select aria-label="Genre" value=${f.g} onChange=${e=>upd({g:e.target.value})}><option value="">All genres</option>${GENRES.map(g=>html`<option key=${g}>${g}</option>`)}</select>
+   <select aria-label="Author" value=${f.a} onChange=${e=>upd({a:e.target.value})}><option value="">All authors</option>${authors.map(a=>html`<option key=${a}>${a}</option>`)}</select>
+   <select aria-label="Rating" value=${f.r} onChange=${e=>upd({r:+e.target.value})}><option value="0">Any rating</option><option value="4">4+ stars</option><option value="4.5">4.5+ stars</option></select>
+   <select aria-label="Year" value=${f.y} onChange=${e=>upd({y:e.target.value})}><option value="">Any year</option><option value="old">Before 1950</option><option value="mid">1950\u20131999</option><option value="new">2000 onward</option></select></div>
+  <div className="flex flex-wrap items-center justify-between gap-3 my-4"><span className="text-sm text-muted">${list.length} book${list.length===1?'':'s'}</span>
+   <div className="flex items-center gap-2 text-sm">Sort<select style=${{width:'auto'}} value=${f.s} onChange=${e=>upd({s:e.target.value})}><option value="rated">Highest Rated</option><option value="new">Newest Releases</option><option value="rev">Most Reviewed</option></select>
+   <button className="btn" onClick=${()=>setF({q:'',g:'',a:'',r:0,y:'',s:'rated'})}>Reset</button></div></div>
+  ${list.length?html`<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">${list.map(({b,st})=>html`<${Card} key=${b.id} b=${b} st=${st} onOpen=${()=>setOpen(b.id)}/>`)}</div>`:html`<p className="text-center text-muted py-16">No books match your filters.</p>`}</div>`}
+ ${view==='profile'&&html`<div className="pt-8"><div className="flex items-center gap-4 mb-6"><${Avatar} name="You" s=${64}/><div><h1 className="serif text-3xl font-bold">Your bookshelf</h1><p className="text-muted text-sm">${Object.keys(shelf).length} books shelved \u00b7 ${mine.length} reviews written</p></div></div>
+  <div className="flex gap-2 flex-wrap mb-5">${STATUS.map(([k,l])=>html`<button key=${k} onClick=${()=>setTab(k)} className=${'chip '+(tab===k?'on':'')}>${l} (${Object.values(shelf).filter(v=>v===k).length})</button>`)}</div>
+  ${(()=>{const items=all.filter(({b})=>shelf[b.id]===tab);return items.length?html`<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">${items.map(({b,st})=>html`<${Card} key=${b.id} b=${b} st=${st} onOpen=${()=>setOpen(b.id)}/>`)}</div>`:html`<p className="text-muted">Nothing here yet. Add books from the catalog.</p>`})()}
+  <h2 className="serif text-2xl font-bold mt-10 mb-4">My reviews</h2>
+  ${mine.length?html`<div className="space-y-3">${mine.map(r=>{const b=BOOKS.find(x=>x.id===r.b);return html`<article key=${r.id} className="bg-card border border-line rounded-xl p-4"><div className="flex justify-between gap-3 flex-wrap"><button className="serif font-bold text-brand" onClick=${()=>setOpen(b.id)}>${b.t}</button><span className="text-xs text-muted">${fmt(r.d)}</span></div><${Stars} v=${r.r} s=${14}/><h4 className="font-semibold mt-1">${r.t}</h4><p className="text-sm mt-1">${r.x}</p></article>`})}</div>`:html`<p className="text-muted">You haven\u2019t reviewed anything yet. Open a book and post your first review.</p>`}</div>`}
+ </main>
+ <footer className="site-footer"><div className="max-w-6xl mx-auto px-4 py-6 flex flex-wrap items-center justify-between gap-3 text-xs"><span className="serif text-base font-semibold text-brand">Cambo Book <span className="font-normal text-muted">· A home for book people</span></span><span>Read a little. Find a lot.</span></div></footer>
+ ${ob&&html`<${Detail} b=${ob.b} st=${ob.st} mine=${mine} shelf=${shelf} setShelf=${setShelf} addReview=${r=>setMine(p=>[r,...p])} close=${()=>setOpen(null)}/>`}
+ </div>`}
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+</script>
+</body>
+</html>
