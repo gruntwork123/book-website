@@ -65,6 +65,8 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .cover-title{position:relative;z-index:1}
 .cover-author{position:relative;z-index:1}
 .cover-image{z-index:2}
+.reading-tools{border:1px solid var(--line);border-radius:.8rem;background:var(--card);padding:1rem}
+.reading-tools textarea{min-height:5rem;resize:vertical}
 .catalog-panel{box-shadow:0 8px 24px rgba(51,42,26,.045)}
 .quiet-rule{height:1px;background:var(--line)}
 .site-footer{border-top:1px solid var(--line);color:var(--muted)}
@@ -189,8 +191,11 @@ function Card({b,st,onOpen}){return html`<article className="book-card flex flex
 
 function Detail({b,st,mine,shelf,setShelf,addReview,close}){
  const [sf,setSf]=useState(0),[rt,setRt]=useState(0),[title,setTitle]=useState(''),[text,setText]=useState('');
+ const [question,setQuestion]=useState('What makes this book worth reading? Please avoid spoilers.');
  const revs=[...mine.filter(r=>r.b===b.id),...SEED.filter(r=>r.b===b.id)].filter(r=>!sf||r.r===sf);
  const cur=shelf[b.id];
+ const aiPrompt=`I am interested in the book "${b.t}" by ${b.a}. Book description: ${b.s} My question: ${question.trim()||'What makes this book worth reading? Please avoid spoilers.'} Please do not reproduce copyrighted passages.`;
+ const googleBooksUrl='https://books.google.com/books?q='+encodeURIComponent('intitle:'+b.t+' inauthor:'+b.a);
  const submit=e=>{e.preventDefault();if(!rt||!title.trim()||!text.trim())return;addReview({id:'m'+Date.now(),b:b.id,u:'You',r:rt,t:title.trim(),x:text.trim(),d:new Date().toISOString(),v:cur==='read'});setRt(0);setTitle('');setText('')};
  return html`<div className="fixed inset-0 z-50 bg-black/60 overflow-y-auto" onClick=${close}>
  <div className="bg-paper max-w-4xl mx-auto my-0 sm:my-8 sm:rounded-2xl p-5 sm:p-8 relative" style=${{minHeight:'100%'}} onClick=${e=>e.stopPropagation()}>
@@ -201,6 +206,17 @@ function Detail({b,st,mine,shelf,setShelf,addReview,close}){
    <h2 className="serif text-3xl font-bold mt-2">${b.t}</h2><p className="text-muted">by ${b.a}</p>
    <div className="flex items-center gap-2 mt-2"><${Stars} v=${st.avg}/><b>${st.avg.toFixed(2)}</b><span className="text-muted text-sm">${st.n.toLocaleString()} ratings</span></div>
    <p className="mt-4 leading-relaxed">${b.s}</p>
+   <section className="reading-tools mt-5" aria-label="Read or discuss this book">
+    <h3 className="serif text-xl font-bold">Step into the story</h3>
+    <p className="text-sm text-muted mt-1">Look for a reading preview, or ask AI a question about this book.</p>
+    <div className="flex flex-wrap gap-2 mt-4">
+     <a className="btn btn-p" href=${googleBooksUrl} target="_blank" rel="noopener noreferrer"><${Icon} n="BookOpen" s=${16}/>Find a reading preview</a>
+    </div>
+    <label className="block text-sm font-medium mt-4" for="book-ai-question">Ask AI about this book</label>
+    <textarea id="book-ai-question" className="mt-2" maxLength="500" value=${question} onChange=${e=>setQuestion(e.target.value)} placeholder="Ask a question about the book…"></textarea>
+    <a className="btn mt-2" href=${'https://chatgpt.com/?q='+encodeURIComponent(aiPrompt)} target="_blank" rel="noopener noreferrer"><${Icon} n="MessageCircle" s=${16}/>Ask ChatGPT</a>
+    <p className="text-xs text-muted mt-2">Reading access depends on the publisher. AI opens ChatGPT in a new tab; sign-in may be required.</p>
+   </section>
    <dl className="grid grid-cols-2 gap-x-4 gap-y-2 mt-4 text-sm">
     ${[['Pages',b.p],['Publisher',b.pub],['ISBN',b.isbn],['Published',b.d]].map(([k,v])=>html`<div key=${k}><dt className="text-muted">${k}</dt><dd className="font-medium">${v}</dd></div>`)}</dl>
    <div className="flex flex-wrap gap-2 mt-5">${STATUS.map(([k,l,ic])=>html`<button key=${k} onClick=${()=>setShelf(b.id,cur===k?null:k)} className=${'btn '+(cur===k?'btn-p':'')}><${Icon} n=${ic} s=${16}/>${l}</button>`)}</div>
