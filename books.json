@@ -44,5 +44,805 @@
       0,
       0
     ]
+  },
+  {
+    "id": 103,
+    "t": "Animal Farm",
+    "a": "George Orwell",
+    "g": "Fiction",
+    "y": 1945,
+    "s": "Farm animals overthrow their owner and attempt to build a fair society, only to see power reshape their revolution."
+  },
+  {
+    "id": 104,
+    "t": "Rebecca",
+    "a": "Daphne du Maurier",
+    "g": "Mystery",
+    "y": 1938,
+    "s": "A young bride arrives at the grand estate of Manderley, where the memory of her husband's first wife shadows every room."
+  },
+  {
+    "id": 105,
+    "t": "The Shining",
+    "a": "Stephen King",
+    "g": "Fiction",
+    "y": 1977,
+    "s": "A winter caretaker brings his family to an isolated hotel, where confinement and a sinister history test their safety."
+  },
+  {
+    "id": 106,
+    "t": "The Stand",
+    "a": "Stephen King",
+    "g": "Fiction",
+    "y": 1978,
+    "s": "After a plague devastates civilization, survivors gather into opposing communities and face a struggle over humanity's future."
+  },
+  {
+    "id": 107,
+    "t": "The Left Hand of Darkness",
+    "a": "Ursula K. Le Guin",
+    "g": "Sci-Fi",
+    "y": 1969,
+    "s": "An envoy on the planet Gethen must build trust across cultural divides in a world where people can change gender."
+  },
+  {
+    "id": 108,
+    "t": "Ender's Game",
+    "a": "Orson Scott Card",
+    "g": "Sci-Fi",
+    "y": 1985,
+    "s": "A gifted child trains at a military academy in space, where demanding games prepare students for an approaching conflict."
+  },
+  {
+    "id": 109,
+    "t": "Neuromancer",
+    "a": "William Gibson",
+    "g": "Sci-Fi",
+    "y": 1984,
+    "s": "A burned-out computer hacker is offered a dangerous chance to return to cyberspace for one impossible job."
+  },
+  {
+    "id": 110,
+    "t": "Foundation",
+    "a": "Isaac Asimov",
+    "g": "Sci-Fi",
+    "y": 1951,
+    "s": "A mathematician predicts the fall of a galactic empire and sets out to preserve knowledge through the coming dark age."
+  },
+  {
+    "id": 111,
+    "t": "Do Androids Dream of Electric Sheep?",
+    "a": "Philip K. Dick",
+    "g": "Sci-Fi",
+    "y": 1968,
+    "s": "A bounty hunter in a damaged future questions the boundary between human feeling and artificial life."
+  },
+  {
+    "id": 112,
+    "t": "The Three-Body Problem",
+    "a": "Liu Cixin",
+    "g": "Sci-Fi",
+    "y": 2008,
+    "s": "A mysterious virtual-reality game connects present-day scientists to a civilization facing an uncertain future."
+  },
+  {
+    "id": 113,
+    "t": "Kindred",
+    "a": "Octavia E. Butler",
+    "g": "Sci-Fi",
+    "y": 1979,
+    "s": "A modern Black woman is repeatedly pulled back in time to a Maryland plantation, where her family's survival depends on her choices."
+  },
+  {
+    "id": 114,
+    "t": "The Martian Chronicles",
+    "a": "Ray Bradbury",
+    "g": "Sci-Fi",
+    "y": 1950,
+    "s": "Linked stories follow human settlement on Mars and the encounters that transform both newcomers and the planet."
+  },
+  {
+    "id": 115,
+    "t": "Contact",
+    "a": "Carl Sagan",
+    "g": "Sci-Fi",
+    "y": 1985,
+    "s": "An astronomer discovers a message from beyond Earth and joins an international effort to understand its extraordinary invitation."
+  },
+  {
+    "id": 116,
+    "t": "The Time Machine",
+    "a": "H. G. Wells",
+    "g": "Sci-Fi",
+    "y": 1895,
+    "s": "A Victorian inventor travels far into the future and finds a world shaped by the consequences of human society."
+  },
+  {
+    "id": 117,
+    "t": "The War of the Worlds",
+    "a": "H. G. Wells",
+    "g": "Sci-Fi",
+    "y": 1898,
+    "s": "A narrator struggles to survive after Martian machines arrive in England and overturn everyday life."
+  },
+  {
+    "id": 118,
+    "t": "The Invisible Man",
+    "a": "H. G. Wells",
+    "g": "Sci-Fi",
+    "y": 1897,
+    "s": "A scientist's discovery of invisibility brings isolation, escalating ambitions, and conflict to a quiet English village."
+  },
+  {
+    "id": 119,
+    "t": "The Fifth Season",
+    "a": "N. K. Jemisin",
+    "g": "Fantasy",
+    "y": 2015,
+    "s": "On a continent scarred by catastrophic seasons, a mother searches for her daughter amid fear of earth-controlling powers."
+  },
+  {
+    "id": 120,
+    "t": "The Lies of Locke Lamora",
+    "a": "Scott Lynch",
+    "g": "Fantasy",
+    "y": 2006,
+    "s": "A clever band of thieves runs elaborate cons among the wealthy, until a dangerous rival disrupts their plans."
+  },
+  {
+    "id": 121,
+    "t": "Mistborn: The Final Empire",
+    "a": "Brandon Sanderson",
+    "g": "Fantasy",
+    "y": 2006,
+    "s": "A streetwise young woman joins a crew of rebels who plan to challenge an immortal ruler and his oppressive empire."
+  },
+  {
+    "id": 122,
+    "t": "The Eye of the World",
+    "a": "Robert Jordan",
+    "g": "Fantasy",
+    "y": 1990,
+    "s": "A quiet village is swept into a vast struggle when a mysterious guide leads its young people toward an uncertain destiny."
+  },
+  {
+    "id": 123,
+    "t": "The Last Unicorn",
+    "a": "Peter S. Beagle",
+    "g": "Fantasy",
+    "y": 1968,
+    "s": "A unicorn leaves her forest to discover what happened to the others, meeting unlikely companions along the way."
+  },
+  {
+    "id": 124,
+    "t": "The Once and Future King",
+    "a": "T. H. White",
+    "g": "Fantasy",
+    "y": 1958,
+    "s": "Arthur's life unfolds from an unusual childhood through the rise and challenges of his legendary kingdom."
+  },
+  {
+    "id": 125,
+    "t": "The Golden Compass",
+    "a": "Philip Pullman",
+    "g": "Fantasy",
+    "y": 1995,
+    "s": "Lyra sets out across a parallel world to find a missing friend and uncover the truth behind a mysterious experiment."
+  },
+  {
+    "id": 126,
+    "t": "The Subtle Knife",
+    "a": "Philip Pullman",
+    "g": "Fantasy",
+    "y": 1997,
+    "s": "Lyra and Will travel between worlds and discover a blade that can open paths through the spaces between them."
+  },
+  {
+    "id": 127,
+    "t": "The Amber Spyglass",
+    "a": "Philip Pullman",
+    "g": "Fantasy",
+    "y": 2000,
+    "s": "Lyra and Will's journey reaches its turning point as allies and enemies converge across many worlds."
+  },
+  {
+    "id": 128,
+    "t": "The Magicians",
+    "a": "Lev Grossman",
+    "g": "Fantasy",
+    "y": 2009,
+    "s": "A brilliant student discovers that magic is real and finds that the fantasy world he admired is far more complicated."
+  },
+  {
+    "id": 129,
+    "t": "Good Omens",
+    "a": "Terry Pratchett and Neil Gaiman",
+    "g": "Fantasy",
+    "y": 1990,
+    "s": "An angel and a demon grow fond of Earth and team up to prevent the approaching end of the world."
+  },
+  {
+    "id": 130,
+    "t": "American Gods",
+    "a": "Neil Gaiman",
+    "g": "Fantasy",
+    "y": 2001,
+    "s": "Recently released from prison, Shadow becomes entangled in a conflict between old gods and new powers in America."
+  },
+  {
+    "id": 131,
+    "t": "The Ocean at the End of the Lane",
+    "a": "Neil Gaiman",
+    "g": "Fantasy",
+    "y": 2013,
+    "s": "A return to a childhood home awakens memories of a strange friendship and a threat from beyond the ordinary."
+  },
+  {
+    "id": 132,
+    "t": "Stardust",
+    "a": "Neil Gaiman",
+    "g": "Fantasy",
+    "y": 1999,
+    "s": "A young man crosses a magical boundary in search of a fallen star and finds a world full of unexpected dangers."
+  },
+  {
+    "id": 133,
+    "t": "The Graveyard Book",
+    "a": "Neil Gaiman",
+    "g": "Fantasy",
+    "y": 2008,
+    "s": "Raised by ghosts in a cemetery, a boy learns about the living world while staying ahead of the danger that follows him."
+  },
+  {
+    "id": 134,
+    "t": "The Priory of the Orange Tree",
+    "a": "Samantha Shannon",
+    "g": "Fantasy",
+    "y": 2019,
+    "s": "Queens, dragons, and distant allies shape a sweeping struggle to protect a divided world from an ancient threat."
+  },
+  {
+    "id": 135,
+    "t": "The Poppy War",
+    "a": "R. F. Kuang",
+    "g": "Fantasy",
+    "y": 2018,
+    "s": "A poor student earns a place at an elite military school and discovers a dangerous power as war approaches."
+  },
+  {
+    "id": 136,
+    "t": "The City of Brass",
+    "a": "S. A. Chakraborty",
+    "g": "Fantasy",
+    "y": 2017,
+    "s": "A gifted con artist is drawn into the hidden city of Daevabad, where ancient magic and political rivalries collide."
+  },
+  {
+    "id": 137,
+    "t": "The Once and Future Witches",
+    "a": "Alix E. Harrow",
+    "g": "Fantasy",
+    "y": 2020,
+    "s": "Three estranged sisters revive old magic and join a movement for women's rights in an alternate 1890s America."
+  },
+  {
+    "id": 138,
+    "t": "The Night Watchman",
+    "a": "Louise Erdrich",
+    "g": "Fiction",
+    "y": 2020,
+    "s": "Members of a Native community organize to protect their people and land as a proposed law threatens their future."
+  },
+  {
+    "id": 139,
+    "t": "The Vanishing Half",
+    "a": "Brit Bennett",
+    "g": "Fiction",
+    "y": 2020,
+    "s": "Twin sisters choose very different lives, and the choices echo through the next generation of their families."
+  },
+  {
+    "id": 140,
+    "t": "Homegoing",
+    "a": "Yaa Gyasi",
+    "g": "Fiction",
+    "y": 2016,
+    "s": "Two half-sisters begin separate family lines whose stories stretch across generations and continents."
+  },
+  {
+    "id": 141,
+    "t": "Pachinko",
+    "a": "Min Jin Lee",
+    "g": "Fiction",
+    "y": 2017,
+    "s": "A Korean family builds new lives in Japan, navigating identity, discrimination, sacrifice, and belonging across generations."
+  },
+  {
+    "id": 142,
+    "t": "A Gentleman in Moscow",
+    "a": "Amor Towles",
+    "g": "Fiction",
+    "y": 2016,
+    "s": "An aristocrat sentenced to house arrest at a grand hotel makes a rich life within its changing walls."
+  },
+  {
+    "id": 143,
+    "t": "All the Light We Cannot See",
+    "a": "Anthony Doerr",
+    "g": "Fiction",
+    "y": 2014,
+    "s": "A blind French girl and a German boy follow separate paths through occupied Europe during World War II."
+  },
+  {
+    "id": 144,
+    "t": "The Goldfinch",
+    "a": "Donna Tartt",
+    "g": "Fiction",
+    "y": 2013,
+    "s": "After a museum tragedy, a boy's attachment to a small painting shapes his wandering path into adulthood."
+  },
+  {
+    "id": 145,
+    "t": "A Little Life",
+    "a": "Hanya Yanagihara",
+    "g": "Fiction",
+    "y": 2015,
+    "s": "Four college friends build adult lives in New York while one friend's guarded past affects their closest bonds."
+  },
+  {
+    "id": 146,
+    "t": "Normal People",
+    "a": "Sally Rooney",
+    "g": "Romance",
+    "y": 2018,
+    "s": "Connell and Marianne move between friendship and love as school, university, and changing circumstances shape their relationship."
+  },
+  {
+    "id": 147,
+    "t": "Conversations with Friends",
+    "a": "Sally Rooney",
+    "g": "Fiction",
+    "y": 2017,
+    "s": "Two college friends are drawn into a complicated friendship with an older couple, testing their ideas about intimacy."
+  },
+  {
+    "id": 148,
+    "t": "The Rosie Project",
+    "a": "Graeme Simsion",
+    "g": "Romance",
+    "y": 2013,
+    "s": "A meticulous professor creates a questionnaire to find a partner, but an unexpected meeting disrupts his careful plan."
+  },
+  {
+    "id": 149,
+    "t": "Me Before You",
+    "a": "Jojo Moyes",
+    "g": "Romance",
+    "y": 2012,
+    "s": "A new caregiver and the man she looks after form a bond that challenges both of their expectations for life."
+  },
+  {
+    "id": 150,
+    "t": "The Notebook",
+    "a": "Nicholas Sparks",
+    "g": "Romance",
+    "y": 1996,
+    "s": "An elderly man reads a shared love story, recalling the choices and promises that shaped two lives."
+  },
+  {
+    "id": 151,
+    "t": "Outlander",
+    "a": "Diana Gabaldon",
+    "g": "Romance",
+    "y": 1991,
+    "s": "A former wartime nurse is transported to eighteenth-century Scotland, where she faces danger and an unexpected love."
+  },
+  {
+    "id": 152,
+    "t": "The Time Traveler's Wife",
+    "a": "Audrey Niffenegger",
+    "g": "Romance",
+    "y": 2003,
+    "s": "An artist and a librarian build a relationship across time as his involuntary journeys complicate their shared life."
+  },
+  {
+    "id": 153,
+    "t": "The Thorn Birds",
+    "a": "Colleen McCullough",
+    "g": "Romance",
+    "y": 1977,
+    "s": "A family saga on an Australian sheep station follows generations through ambition, love, and difficult choices."
+  },
+  {
+    "id": 154,
+    "t": "The Remains of the Day",
+    "a": "Kazuo Ishiguro",
+    "g": "Fiction",
+    "y": 1989,
+    "s": "An English butler takes a journey through the countryside and reflects on service, regret, and a life of restraint."
+  },
+  {
+    "id": 155,
+    "t": "Never Let Me Go",
+    "a": "Kazuo Ishiguro",
+    "g": "Sci-Fi",
+    "y": 2005,
+    "s": "Three friends look back on their unusual school days and gradually confront the purpose of the lives planned for them."
+  },
+  {
+    "id": 156,
+    "t": "Klara and the Sun",
+    "a": "Kazuo Ishiguro",
+    "g": "Sci-Fi",
+    "y": 2021,
+    "s": "An observant artificial friend watches the world from a shop window and hopes to help the child who chooses her."
+  },
+  {
+    "id": 157,
+    "t": "The Underground Railroad",
+    "a": "Colson Whitehead",
+    "g": "Fiction",
+    "y": 2016,
+    "s": "A young woman escapes a Georgia plantation through a literal underground railroad in an alternate history."
+  },
+  {
+    "id": 158,
+    "t": "The Nickel Boys",
+    "a": "Colson Whitehead",
+    "g": "Fiction",
+    "y": 2019,
+    "s": "Two boys endure a brutal reform school in Jim Crow Florida, where their friendship is tested by injustice."
+  },
+  {
+    "id": 159,
+    "t": "The Brief Wondrous Life of Oscar Wao",
+    "a": "Junot Díaz",
+    "g": "Fiction",
+    "y": 2007,
+    "s": "An imaginative Dominican American family's history intertwines with Oscar's search for love and a place to belong."
+  },
+  {
+    "id": 160,
+    "t": "The House of the Spirits",
+    "a": "Isabel Allende",
+    "g": "Fiction",
+    "y": 1982,
+    "s": "The Trueba family story spans generations, blending political change, memory, and supernatural events."
+  },
+  {
+    "id": 161,
+    "t": "One Hundred Years of Solitude",
+    "a": "Gabriel García Márquez",
+    "g": "Fiction",
+    "y": 1967,
+    "s": "The Buendía family experiences love, conflict, and change over generations in the remarkable town of Macondo."
+  },
+  {
+    "id": 162,
+    "t": "Love in the Time of Cholera",
+    "a": "Gabriel García Márquez",
+    "g": "Romance",
+    "y": 1985,
+    "s": "A lifelong attachment endures decades of distance as two people reconsider love, aging, and second chances."
+  },
+  {
+    "id": 163,
+    "t": "The Master and Margarita",
+    "a": "Mikhail Bulgakov",
+    "g": "Fantasy",
+    "y": 1967,
+    "s": "A strange visitor unsettles Moscow while a writer and his beloved become part of a surreal tale of art and power."
+  },
+  {
+    "id": 164,
+    "t": "The Trial",
+    "a": "Franz Kafka",
+    "g": "Fiction",
+    "y": 1925,
+    "s": "Josef K. is arrested without explanation and struggles through an opaque legal system to understand his accusation."
+  },
+  {
+    "id": 165,
+    "t": "The Metamorphosis",
+    "a": "Franz Kafka",
+    "g": "Fiction",
+    "y": 1915,
+    "s": "A traveling salesman wakes transformed into an insect and faces a changed relationship with his family."
+  },
+  {
+    "id": 166,
+    "t": "The Bell Jar",
+    "a": "Sylvia Plath",
+    "g": "Fiction",
+    "y": 1963,
+    "s": "A talented young woman confronts isolation and mental illness while trying to imagine a future of her own."
+  },
+  {
+    "id": 167,
+    "t": "Their Eyes Were Watching God",
+    "a": "Zora Neale Hurston",
+    "g": "Fiction",
+    "y": 1937,
+    "s": "Janie Crawford tells the story of her search for independence, love, and her own voice in the American South."
+  },
+  {
+    "id": 168,
+    "t": "The Bluest Eye",
+    "a": "Toni Morrison",
+    "g": "Fiction",
+    "y": 1970,
+    "s": "A Black girl in 1940s Ohio longs for blue eyes as the novel examines the harm caused by racist standards of beauty."
+  },
+  {
+    "id": 169,
+    "t": "Song of Solomon",
+    "a": "Toni Morrison",
+    "g": "Fiction",
+    "y": 1977,
+    "s": "Milkman Dead searches for family history and identity in a story shaped by memory, community, and flight."
+  },
+  {
+    "id": 170,
+    "t": "The Joy Luck Club",
+    "a": "Amy Tan",
+    "g": "Fiction",
+    "y": 1989,
+    "s": "Four Chinese immigrant mothers and their American-born daughters share stories that bridge generations and cultures."
+  },
+  {
+    "id": 171,
+    "t": "The Namesake",
+    "a": "Jhumpa Lahiri",
+    "g": "Fiction",
+    "y": 2003,
+    "s": "The Ganguli family negotiates identity and belonging as parents and children build a life between cultures."
+  },
+  {
+    "id": 172,
+    "t": "Interpreter of Maladies",
+    "a": "Jhumpa Lahiri",
+    "g": "Fiction",
+    "y": 1999,
+    "s": "Stories of families in India and the United States explore connection, misunderstanding, and lives in transition."
+  },
+  {
+    "id": 173,
+    "t": "The God of Small Things",
+    "a": "Arundhati Roy",
+    "g": "Fiction",
+    "y": 1997,
+    "s": "Twins in Kerala revisit a childhood shaped by family secrets, social divisions, and one defining tragedy."
+  },
+  {
+    "id": 174,
+    "t": "The White Tiger",
+    "a": "Aravind Adiga",
+    "g": "Fiction",
+    "y": 2008,
+    "s": "An ambitious driver writes about his unlikely escape from poverty and the price of success in modern India."
+  },
+  {
+    "id": 175,
+    "t": "The Shadow of the Wind",
+    "a": "Carlos Ruiz Zafón",
+    "g": "Mystery",
+    "y": 2001,
+    "s": "A boy discovers a forgotten novel in Barcelona and follows the mystery of its elusive author."
+  },
+  {
+    "id": 176,
+    "t": "The Girl with the Dragon Tattoo",
+    "a": "Stieg Larsson",
+    "g": "Mystery",
+    "y": 2005,
+    "s": "A journalist and a brilliant investigator revisit a decades-old disappearance in a powerful Swedish family."
+  },
+  {
+    "id": 177,
+    "t": "And Then There Were None",
+    "a": "Agatha Christie",
+    "g": "Mystery",
+    "y": 1939,
+    "s": "Ten strangers arrive on an island and discover that someone is confronting them with secrets from their pasts."
+  },
+  {
+    "id": 178,
+    "t": "Murder on the Orient Express",
+    "a": "Agatha Christie",
+    "g": "Mystery",
+    "y": 1934,
+    "s": "Detective Hercule Poirot investigates a murder aboard a snowbound train where every passenger has a story."
+  },
+  {
+    "id": 179,
+    "t": "The Murder of Roger Ackroyd",
+    "a": "Agatha Christie",
+    "g": "Mystery",
+    "y": 1926,
+    "s": "Poirot investigates a country doctor's account of a murder that unsettles a small English village."
+  },
+  {
+    "id": 180,
+    "t": "The Hound of the Baskervilles",
+    "a": "Arthur Conan Doyle",
+    "g": "Mystery",
+    "y": 1902,
+    "s": "Sherlock Holmes investigates a family curse and a terrifying hound said to haunt the Devon moors."
+  },
+  {
+    "id": 181,
+    "t": "The Maltese Falcon",
+    "a": "Dashiell Hammett",
+    "g": "Mystery",
+    "y": 1930,
+    "s": "Private detective Sam Spade is drawn into a dangerous search for a priceless and elusive statuette."
+  },
+  {
+    "id": 182,
+    "t": "The Big Sleep",
+    "a": "Raymond Chandler",
+    "g": "Mystery",
+    "y": 1939,
+    "s": "Los Angeles private detective Philip Marlowe takes a case that leads through a wealthy family's tangled secrets."
+  },
+  {
+    "id": 183,
+    "t": "In the Woods",
+    "a": "Tana French",
+    "g": "Mystery",
+    "y": 2007,
+    "s": "A detective investigating a child's murder confronts a case that echoes the unsolved disappearance of his own friends."
+  },
+  {
+    "id": 184,
+    "t": "The Thursday Murder Club",
+    "a": "Richard Osman",
+    "g": "Mystery",
+    "y": 2020,
+    "s": "Four retirement-community friends who enjoy cold cases find themselves investigating a real murder nearby."
+  },
+  {
+    "id": 185,
+    "t": "The Da Vinci Code",
+    "a": "Dan Brown",
+    "g": "Mystery",
+    "y": 2003,
+    "s": "A symbologist follows a trail of clues through European art and history after a murder in the Louvre."
+  },
+  {
+    "id": 186,
+    "t": "The Woman in the Window",
+    "a": "A. J. Finn",
+    "g": "Mystery",
+    "y": 2018,
+    "s": "A reclusive woman believes she has witnessed a crime across the street, but doubts and uncertainty surround her account."
+  },
+  {
+    "id": 187,
+    "t": "The Guest List",
+    "a": "Lucy Foley",
+    "g": "Mystery",
+    "y": 2020,
+    "s": "A celebration on a remote island turns into a murder investigation among guests with secrets."
+  },
+  {
+    "id": 188,
+    "t": "The Dry",
+    "a": "Jane Harper",
+    "g": "Mystery",
+    "y": 2016,
+    "s": "A federal agent returns to his drought-stricken hometown to investigate a death and face an old mystery."
+  },
+  {
+    "id": 189,
+    "t": "The Girl on the Train",
+    "a": "Paula Hawkins",
+    "g": "Mystery",
+    "y": 2015,
+    "s": "A commuter becomes entangled in a missing-person case after her daily train ride brings her close to a couple's lives."
+  },
+  {
+    "id": 190,
+    "t": "The Giver",
+    "a": "Lois Lowry",
+    "g": "Sci-Fi",
+    "y": 1993,
+    "s": "A boy selected to inherit his community's memories discovers what its peaceful order has concealed."
+  },
+  {
+    "id": 191,
+    "t": "The House on Mango Street",
+    "a": "Sandra Cisneros",
+    "g": "Fiction",
+    "y": 1984,
+    "s": "Vignettes follow Esperanza as she grows up in a Chicago neighborhood and imagines a home and future of her own."
+  },
+  {
+    "id": 192,
+    "t": "The Hitchhiker's Guide to the Galaxy",
+    "a": "Douglas Adams",
+    "g": "Sci-Fi",
+    "y": 1979,
+    "s": "Arthur Dent escapes Earth's destruction and travels the galaxy with a guidebook and a crew of eccentric companions."
+  },
+  {
+    "id": 193,
+    "t": "The Dispossessed",
+    "a": "Ursula K. Le Guin",
+    "g": "Sci-Fi",
+    "y": 1974,
+    "s": "A physicist travels between neighboring worlds with contrasting societies in search of scientific and social understanding."
+  },
+  {
+    "id": 194,
+    "t": "Parable of the Sower",
+    "a": "Octavia E. Butler",
+    "g": "Sci-Fi",
+    "y": 1993,
+    "s": "In a near-future California strained by climate and social upheaval, a young woman begins a perilous journey north."
+  },
+  {
+    "id": 195,
+    "t": "The Power",
+    "a": "Naomi Alderman",
+    "g": "Sci-Fi",
+    "y": 2016,
+    "s": "A sudden ability to generate electricity reshapes power and politics as people around the world respond to a new reality."
+  },
+  {
+    "id": 196,
+    "t": "The Three Musketeers",
+    "a": "Alexandre Dumas",
+    "g": "Fiction",
+    "y": 1844,
+    "s": "Young d'Artagnan joins the musketeers Athos, Porthos, and Aramis in adventures of loyalty and intrigue."
+  },
+  {
+    "id": 197,
+    "t": "Les Misérables",
+    "a": "Victor Hugo",
+    "g": "Fiction",
+    "y": 1862,
+    "s": "Jean Valjean seeks a new life while a determined inspector, social hardship, and revolution shape his path."
+  },
+  {
+    "id": 198,
+    "t": "The Secret History",
+    "a": "Donna Tartt",
+    "g": "Mystery",
+    "y": 1992,
+    "s": "A college student joins an exclusive classics group whose pursuit of beauty ends in a secret and a death."
+  },
+  {
+    "id": 199,
+    "t": "The Art of War",
+    "a": "Sun Tzu",
+    "g": "Non-Fiction",
+    "y": -500,
+    "s": "An ancient Chinese treatise presents concise reflections on strategy, leadership, and understanding conflict."
+  },
+  {
+    "id": 200,
+    "t": "The Diary of a Young Girl",
+    "a": "Anne Frank",
+    "g": "Biography",
+    "y": 1947,
+    "s": "Anne Frank's diary records the thoughts and daily life of a young Jewish girl hiding with her family during World War II."
+  },
+  {
+    "id": 201,
+    "t": "Thinking, Fast and Slow",
+    "a": "Daniel Kahneman",
+    "g": "Non-Fiction",
+    "y": 2011,
+    "s": "Psychologist Daniel Kahneman explores two modes of thought and how they shape judgment, decisions, and everyday reasoning."
+  },
+  {
+    "id": 202,
+    "t": "The Wright Brothers",
+    "a": "David McCullough",
+    "g": "Biography",
+    "y": 2015,
+    "s": "This biography follows Wilbur and Orville Wright's curiosity, experiments, and persistence in the early history of flight."
   }
 ]

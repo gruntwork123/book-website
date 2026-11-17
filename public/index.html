@@ -19,7 +19,7 @@ tailwind.config={theme:{extend:{fontFamily:{serif:['Fraunces','Georgia','serif']
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#14181a;--card:#1c2124;--ink:#efe9dc;--muted:#a39b8c;--line:#2d3438;--brand:#6bb394;--onbrand:#0e1a14;--gold:#e0ad4a;color-scheme:dark}}
 :root[data-theme="dark"]{--paper:#14181a;--card:#1c2124;--ink:#efe9dc;--muted:#a39b8c;--line:#2d3438;--brand:#6bb394;--onbrand:#0e1a14;--gold:#e0ad4a;color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;background-image:radial-gradient(ellipse at 12% 0%,rgba(198,166,110,.12),transparent 36rem)}
+body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.6;background-image:radial-gradient(ellipse at 12% 0%,rgba(198,166,110,.12),transparent 36rem)}
 .serif{font-family:Fraunces,Georgia,serif}
 input,select,textarea{background:var(--card);border:1px solid var(--line);border-radius:.5rem;padding:.5rem .75rem;color:var(--ink);width:100%}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-offset:1px}
@@ -59,6 +59,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .section-title{letter-spacing:-.035em}
 .book-card{border-radius:.8rem;background:var(--card);border:1px solid var(--line);padding:.8rem;transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}
 .book-card:hover{transform:translateY(-5px);border-color:rgba(31,77,58,.28);box-shadow:0 16px 30px rgba(51,42,26,.1)}
+.book-summary{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .book-card-cover{padding:.35rem .35rem .1rem}
 .book-card-cover .cover-surface{box-shadow:7px 8px 14px rgba(36,30,20,.17),inset 4px 0 0 rgba(255,255,255,.14),inset -3px 0 0 rgba(0,0,0,.2);transition:transform .25s ease}
 .book-card-cover:hover .cover-surface{transform:rotate(-1.5deg) translateY(-2px)}
@@ -181,12 +182,12 @@ const Stars=({v,s=16})=>html`<span className="inline-flex text-gold">${[1,2,3,4,
 const StarPicker=({v,set})=>{const [h,setH]=useState(0);return html`<div className="flex text-gold" onMouseLeave=${()=>setH(0)}>${[1,2,3,4,5].map(i=>html`<button type="button" key=${i} aria-label=${i+' stars'} onMouseEnter=${()=>setH(i)} onClick=${()=>set(i)} className="p-0.5"><${Icon} n="Star" s=${28} fill=${i<=(h||v)}/></button>`)}</div>`};
 const fmt=d=>new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
 
-function stats(b,mine){const d=[...b.dist];mine.filter(r=>r.b===b.id).forEach(r=>d[r.r-1]++);const n=d.reduce((a,c)=>a+c,0);return{d,n,avg:d.reduce((a,c,i)=>a+c*(i+1),0)/n}}
+function stats(b,mine){const d=[...b.dist];mine.filter(r=>r.b===b.id).forEach(r=>d[r.r-1]++);const n=d.reduce((a,c)=>a+c,0);return{d,n,avg:n?d.reduce((a,c,i)=>a+c*(i+1),0)/n:0}}
 
 function Card({b,st,onOpen}){return html`<article className="book-card flex flex-col gap-3">
 <button className="book-card-cover" onClick=${onOpen} aria-label=${'Open '+b.t}><${Cover} b=${b}/></button>
 <div className="flex-1"><span className="text-xs px-2 py-0.5 rounded-full bg-brand text-onbrand">${b.g}</span>
-<h3 className="serif font-bold text-lg mt-2 leading-snug">${b.t}</h3><p className="text-sm text-muted">${b.a}</p>
+<h3 className="serif font-bold text-lg mt-2 leading-snug">${b.t}</h3><p className="text-sm text-muted">${b.a}</p><p className="book-summary text-sm text-muted leading-relaxed mt-2">${b.s}</p>
 <div className="flex items-center gap-2 mt-2 text-sm"><${Stars} v=${st.avg} s=${14}/><span className="font-medium">${st.avg.toFixed(1)}</span><span className="text-muted">(${st.n.toLocaleString()})</span></div></div>
 <button className="btn btn-p justify-center" onClick=${onOpen}>View Details</button></article>`}
 
@@ -236,7 +237,7 @@ function Detail({b,st,mine,shelf,setShelf,addReview,close}){
   </div></div>
  <section className="mt-8 grid md:grid-cols-[260px_1fr] gap-8">
   <div><h3 className="serif text-xl font-bold mb-3">Rating breakdown</h3>
-   ${[5,4,3,2,1].map(n=>{const pct=Math.round(st.d[n-1]/st.n*100);return html`<button key=${n} onClick=${()=>setSf(sf===n?0:n)} className=${'flex items-center gap-2 w-full py-1 text-sm rounded '+(sf===n?'font-semibold':'')}>
+   ${[5,4,3,2,1].map(n=>{const pct=st.n?Math.round(st.d[n-1]/st.n*100):0;return html`<button key=${n} onClick=${()=>setSf(sf===n?0:n)} className=${'flex items-center gap-2 w-full py-1 text-sm rounded '+(sf===n?'font-semibold':'')}>
     <span className="w-8 flex items-center gap-0.5">${n}<${Icon} n="Star" s=${12} fill/></span>
     <span className="flex-1 h-2.5 rounded-full bg-line overflow-hidden"><span className="block h-full bg-gold" style=${{width:pct+'%'}}></span></span><span className="w-9 text-right text-muted">${pct}%</span></button>`})}
    ${sf?html`<button className="text-sm underline mt-2 text-brand" onClick=${()=>setSf(0)}>Clear ${sf}-star filter</button>`:html`<p className="text-xs text-muted mt-2">Tap a row to filter reviews.</p>`}
@@ -266,11 +267,16 @@ function Detail({b,st,mine,shelf,setShelf,addReview,close}){
 function App(){
  const [view,setView]=useState('home'),[open,setOpen]=useState(null),[shelf,setShelfS]=useState({1:'reading',3:'read',6:'want'}),[mine,setMine]=useState([]);
  const [f,setF]=useState({q:'',g:'',a:'',r:0,y:'',s:'rated'}),[tab,setTab]=useState('read');
+ const [savedBooks,setSavedBooks]=useState([]),[catalogError,setCatalogError]=useState(''),[visibleCount,setVisibleCount]=useState(24);
+ useEffect(()=>{let active=true;fetch('/api/books').then(response=>{if(!response.ok)throw new Error('Book catalog request failed: '+response.status);return response.json()}).then(data=>{if(!Array.isArray(data))throw new Error('Book catalog response must be an array');if(active)setSavedBooks(data)}).catch(error=>{console.error('Could not load saved books',error);if(active)setCatalogError('Some saved books could not be loaded. Please refresh the page or check the site server.')});return()=>{active=false}},[]);
+ useEffect(()=>setVisibleCount(24),[f.q,f.g,f.a,f.r,f.y,f.s]);
  const upd=o=>setF(p=>({...p,...o}));
- const all=useMemo(()=>BOOKS.map(b=>({b,st:stats(b,mine)})),[mine]);
- const authors=[...new Set(BOOKS.map(b=>b.a))].sort();
+ const catalogBooks=useMemo(()=>{const seen=new Set();return [...BOOKS,...savedBooks].filter(b=>{const key=(b.t||'').trim().toLowerCase()+'|'+(b.a||'').trim().toLowerCase();if(!b.t||!b.a||seen.has(key))return false;seen.add(key);return true}).map((b,i)=>({...b,p:b.p||'Not listed',pub:b.pub||'Not listed',isbn:b.isbn||'Not listed',d:b.d||String(b.y||''),c:Array.isArray(b.c)&&b.c.length===2?b.c:[['#59784c','#22331d'],['#596b83','#202a3d'],['#a05f4b','#3a211d'],['#568b91','#203d42']][i%4],dist:Array.isArray(b.dist)&&b.dist.length===5?b.dist:[0,0,0,0,0]}))},[savedBooks]);
+ const all=useMemo(()=>catalogBooks.map(b=>({b,st:stats(b,mine)})),[catalogBooks,mine]);
+ const authors=[...new Set(catalogBooks.map(b=>b.a))].sort();
  const list=all.filter(({b,st})=>(!f.q||(b.t+b.a+b.g).toLowerCase().includes(f.q.toLowerCase()))&&(!f.g||b.g===f.g)&&(!f.a||b.a===f.a)&&st.avg>=f.r&&(!f.y||(f.y==='old'?b.y<1950:f.y==='mid'?b.y>=1950&&b.y<2000:b.y>=2000)))
   .sort((x,z)=>f.s==='rated'?z.st.avg-x.st.avg:f.s==='new'?z.b.y-x.b.y:z.st.n-x.st.n);
+ const visibleList=list.slice(0,visibleCount);
  const go=(v,o)=>{if(o)upd(o);setView(v);scrollTo(0,0)};
  const setShelf=(id,s)=>setShelfS(p=>{const n={...p};s?n[id]=s:delete n[id];return n});
  const ob=open&&all.find(x=>x.b.id===open);
@@ -299,6 +305,7 @@ function App(){
   <div className="quiet-rule"></div>
   <div className="flex items-end justify-between mb-5 mt-8"><div><p className="section-eyebrow mb-2">Picked for your next chapter</p><h2 className="section-title serif text-2xl sm:text-3xl font-bold">Featured books</h2></div><button className="text-brand text-sm font-semibold inline-flex items-center gap-1" onClick=${()=>go('catalog')}>Browse all <${Icon} n="ArrowRight" s=${16}/></button></div>
   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">${[...all].sort((a,b)=>b.st.avg-a.st.avg).slice(0,4).map(({b,st})=>html`<${Card} key=${b.id} b=${b} st=${st} onOpen=${()=>setOpen(b.id)}/>`)}</div></div>`}
+ ${catalogError&&html`<p className="mt-4 rounded-lg border border-line bg-card p-3 text-sm text-muted" role="status">${catalogError}</p>`}
  ${view==='catalog'&&html`<div className="pt-8"><p className="section-eyebrow mb-2">Find a story to get lost in</p><h1 className="serif text-3xl font-bold mb-5">The library</h1>
   <div className="catalog-panel bg-card border border-line rounded-xl p-4 grid grid-cols-2 lg:grid-cols-6 gap-3">
    <div className="col-span-2"><input placeholder="Search\u2026" value=${f.q} onChange=${e=>upd({q:e.target.value})}/></div>
@@ -306,15 +313,15 @@ function App(){
    <select aria-label="Author" value=${f.a} onChange=${e=>upd({a:e.target.value})}><option value="">All authors</option>${authors.map(a=>html`<option key=${a}>${a}</option>`)}</select>
    <select aria-label="Rating" value=${f.r} onChange=${e=>upd({r:+e.target.value})}><option value="0">Any rating</option><option value="4">4+ stars</option><option value="4.5">4.5+ stars</option></select>
    <select aria-label="Year" value=${f.y} onChange=${e=>upd({y:e.target.value})}><option value="">Any year</option><option value="old">Before 1950</option><option value="mid">1950\u20131999</option><option value="new">2000 onward</option></select></div>
-  <div className="flex flex-wrap items-center justify-between gap-3 my-4"><span className="text-sm text-muted">${list.length} book${list.length===1?'':'s'}</span>
+  <div className="flex flex-wrap items-center justify-between gap-3 my-4"><span className="text-sm text-muted" aria-live="polite">${list.length} book${list.length===1?'':'s'} · Showing ${Math.min(visibleCount,list.length)}</span>
    <div className="flex items-center gap-2 text-sm">Sort<select style=${{width:'auto'}} value=${f.s} onChange=${e=>upd({s:e.target.value})}><option value="rated">Highest Rated</option><option value="new">Newest Releases</option><option value="rev">Most Reviewed</option></select>
    <button className="btn" onClick=${()=>setF({q:'',g:'',a:'',r:0,y:'',s:'rated'})}>Reset</button></div></div>
-  ${list.length?html`<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">${list.map(({b,st})=>html`<${Card} key=${b.id} b=${b} st=${st} onOpen=${()=>setOpen(b.id)}/>`)}</div>`:html`<p className="text-center text-muted py-16">No books match your filters.</p>`}</div>`}
+  ${list.length?html`<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">${visibleList.map(({b,st})=>html`<${Card} key=${b.id} b=${b} st=${st} onOpen=${()=>setOpen(b.id)}/>` )}</div>${visibleCount<list.length&&html`<div className="text-center mt-8"><button className="btn" onClick=${()=>setVisibleCount(count=>Math.min(count+24,list.length))}>Show more books (${list.length-visibleList.length} remaining)</button></div>`}`:html`<p className="text-center text-muted py-16">No books match your filters.</p>`}</div>`}
  ${view==='profile'&&html`<div className="pt-8"><div className="flex items-center gap-4 mb-6"><${Avatar} name="You" s=${64}/><div><h1 className="serif text-3xl font-bold">Your bookshelf</h1><p className="text-muted text-sm">${Object.keys(shelf).length} books shelved \u00b7 ${mine.length} reviews written</p></div></div>
   <div className="flex gap-2 flex-wrap mb-5">${STATUS.map(([k,l])=>html`<button key=${k} onClick=${()=>setTab(k)} className=${'chip '+(tab===k?'on':'')}>${l} (${Object.values(shelf).filter(v=>v===k).length})</button>`)}</div>
   ${(()=>{const items=all.filter(({b})=>shelf[b.id]===tab);return items.length?html`<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">${items.map(({b,st})=>html`<${Card} key=${b.id} b=${b} st=${st} onOpen=${()=>setOpen(b.id)}/>`)}</div>`:html`<p className="text-muted">Nothing here yet. Add books from the catalog.</p>`})()}
   <h2 className="serif text-2xl font-bold mt-10 mb-4">My reviews</h2>
-  ${mine.length?html`<div className="space-y-3">${mine.map(r=>{const b=BOOKS.find(x=>x.id===r.b);return html`<article key=${r.id} className="bg-card border border-line rounded-xl p-4"><div className="flex justify-between gap-3 flex-wrap"><button className="serif font-bold text-brand" onClick=${()=>setOpen(b.id)}>${b.t}</button><span className="text-xs text-muted">${fmt(r.d)}</span></div><${Stars} v=${r.r} s=${14}/><h4 className="font-semibold mt-1">${r.t}</h4><p className="text-sm mt-1">${r.x}</p></article>`})}</div>`:html`<p className="text-muted">You haven\u2019t reviewed anything yet. Open a book and post your first review.</p>`}</div>`}
+  ${mine.length?html`<div className="space-y-3">${mine.map(r=>{const b=catalogBooks.find(x=>x.id===r.b);return html`<article key=${r.id} className="bg-card border border-line rounded-xl p-4"><div className="flex justify-between gap-3 flex-wrap"><button className="serif font-bold text-brand" onClick=${()=>setOpen(b.id)}>${b.t}</button><span className="text-xs text-muted">${fmt(r.d)}</span></div><${Stars} v=${r.r} s=${14}/><h4 className="font-semibold mt-1">${r.t}</h4><p className="text-sm mt-1">${r.x}</p></article>`})}</div>`:html`<p className="text-muted">You haven\u2019t reviewed anything yet. Open a book and post your first review.</p>`}</div>`}
  </main>
  <footer className="site-footer"><div className="max-w-6xl mx-auto px-4 py-6 flex flex-wrap items-center justify-between gap-3 text-xs"><span className="serif text-base font-semibold text-brand">Cambo Book <span className="font-normal text-muted">· A home for book people</span></span><span>Read a little. Find a lot.</span></div></footer>
  ${ob&&html`<${Detail} b=${ob.b} st=${ob.st} mine=${mine} shelf=${shelf} setShelf=${setShelf} addReview=${r=>setMine(p=>[r,...p])} close=${()=>setOpen(null)}/>`}
